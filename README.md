@@ -33,6 +33,12 @@ Then reboot. You can now launch the installer with:
 ```
 sudo bash manjaro-arm-installer
 ```
+Or with encryption support:
+```
+export CRYPT="y"
+sudo bash manjaro-arm-installer
+```
+It will ask the crypt password twice (first to create it, the second one to open the device)
 
 ## Installing and using from gitlab:
 To use this script, please make sure that the following is correct:

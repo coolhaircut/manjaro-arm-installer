@@ -198,6 +198,8 @@ create_install() {
         cp $TMPDIR/root/usr/share/applications/corestuff.desktop $TMPDIR/root/etc/xdg/autostart/
     fi
     
+    [ ! -z "$CRYPT" ] && tweakinitrd_crypt
+    
     info "Cleaning install for unwanted files..."
     umount $TMPDIR/root/var/cache/pacman/pkg
     rm -rf $TMPDIR/root/usr/bin/qemu-aarch64-static
@@ -231,12 +233,24 @@ prepare_card () {
         parted -s $SDCARD mkpart primary ext4 "${END_SECTOR}s" 100% 1> /dev/null 2>&1
         partprobe $SDCARD 1> /dev/null 2>&1
         mkfs.vfat "${SDCARD}${SDDEV}1" -n BOOT_MNJRO 1> /dev/null 2>&1
-        mkfs.ext4 -O ^metadata_csum,^64bit "${SDCARD}${SDDEV}2" -L ROOT_MNJRO 1> /dev/null 2>&1
+
+        if [ -z "$CRYPT" ]; then
+          mkfs.ext4 -O ^metadata_csum,^64bit "${SDCARD}${SDDEV}2" -L ROOT_MNJRO 1> /dev/null 2>&1
+        else
+          cryptsetup luksFormat -q "${SDCARD}${SDDEV}2"
+          cryptsetup open "${SDCARD}${SDDEV}2" ROOT_MNJRO
+          mkfs.ext4 -O ^metadata_csum,^64bit /dev/mapper/ROOT_MNJRO 1> /dev/null 2>&1
+        fi
 
         mkdir -p $TMPDIR/root
         mkdir -p $TMPDIR/boot
         mount ${SDCARD}${SDDEV}1 $TMPDIR/boot
-        mount ${SDCARD}${SDDEV}2 $TMPDIR/root
+        if [ -z "$CRYPT" ]; then
+          mount ${SDCARD}${SDDEV}2 $TMPDIR/root
+        else
+          [ ! -e /dev/mapper/ROOT_MNJRO ] && cryptsetup open "${SDCARD}${SDDEV}2" ROOT_MNJRO
+          mount /dev/mapper/ROOT_MNJRO $TMPDIR/root
+        fi
 }
 
 cleanup () {
@@ -270,14 +284,52 @@ cleanup () {
         dd if=$TMPDIR/boot/trust.img of=${SDCARD} seek=24576 conv=notrunc 1> /dev/null 2>&1
         ;;
     esac
-        
+
+	[ ! -z "$CRYPT" ] && post_crypt
+    
     #clean up
         umount $TMPDIR/root
         umount $TMPDIR/boot
-        rm -r $TMPDIR/root $TMPDIR/boot
-        partprobe $SDCARD 1> /dev/null 2>&1
+		if [ ! -z "$CRYPT" ]; then
+			cryptsetup close /dev/mapper/ROOT_MNJRO
+		fi
+		partprobe $SDCARD 1> /dev/null 2>&1
 }
 
+tweakinitrd_crypt () {
+    case "$DEVICE" in
+    pbpro)
+      # Use the proper mkinitcpio.
+      # NOTE: I've tried to modify only the HOOKS but it seems some kernel modules are required for the display to show stuff
+      cat << EOF > ${TMPDIR}/root/etc/mkinitcpio.conf
+MODULES=(panfrost rockchipdrm drm_kms_helper hantro_vpu analogix_dp rockchip_rga panel_simple arc_uart cw2015_battery i2c-hid icp iscsi_boot_sysfs jsm pwm_bl spl uhid)
+BINARIES=()
+FILES=()
+HOOKS=(base udev keyboard autodetect keymap modconf block encrypt lvm2 filesystems fsck)
+COMPRESSION="cat"
+EOF
+
+      # Install lvm2, this will trigger the cpio rebuild
+      $NSPAWN $TMPDIR/root pacman -Syyu lvm2 --noconfirm
+      ;;
+    esac
+}
+
+post_crypt () {
+    # Get the UUID
+    UUID=$(blkid -s UUID -o value "${SDCARD}${SDDEV}2")
+
+    # Modify the /boot/extlinux/extlinux.conf to match our needs
+    case "$DEVICE" in
+    pbpro)
+      # NOTE: I've tried to only modify the cryptdevice and root parameters but bootsplash and console=ttyS2 prevents to show the password prompt
+      sed -i -e "s!APPEND.*!APPEND initrd=/initramfs-linux.img console=tty1 cryptdevice=UUID=${UUID}:ROOT_MNJRO root=/dev/mapper/ROOT_MNJRO rw rootwait video=eDP-1:1920x1080@60 video=HDMI-A-1:1920x1080@60!g" ${TMPDIR}/boot/extlinux/extlinux.conf
+      ;;
+    esac
+
+    # Generate the /etc/crypttab file
+    echo "ROOT_MNJRO   UUID=${UUID}    none            luks,discard" > ${TMPDIR}/root/etc/crypttab
+}
 
 # Using Dialog to ask for user input for variables
 DEVICE=$(dialog --clear --title "Manjaro ARM Installer" \
