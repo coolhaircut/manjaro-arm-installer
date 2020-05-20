@@ -34,6 +34,7 @@ Then reboot. You can now launch the installer with:
 sudo bash manjaro-arm-installer
 ```
 Or with encryption support:
+*Warning! Encryption support is experimental and only Pinebook Pro is supported at this time!*
 ```
 export CRYPT="y"
 sudo bash manjaro-arm-installer
