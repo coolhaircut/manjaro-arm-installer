@@ -59,20 +59,20 @@ sudo bash ./manjaro-arm-installer
 * Because `dialog` is weird, the script needs to be run in `bash`.
 
 ## Supported Devices:
-* Raspberry Pi 4
-* Raspberry Pi 3B
+* Raspberry Pi 4 (and 3)
 * Pinebook Pro
 * RockPro64
 * Rock Pi 4
 * Odroid N2
-* Odroid C4 (new)
+* Odroid C4
 * Odroid C2
 * Pinebook
 * Pine64-LTS / Sopine
 * Pine64+
 * Pine H64 (new)
 * Rock64
-* LibreComputer Renegade (new)
+* LibreComputer Renegade
+* NanoPC T4 (new)
 * Khadas Vim 3
 * Khadas Vim 2
 * Khadas Vim 1
