@@ -11,7 +11,10 @@ CARCH=$(uname -m)
 NSPAWN='systemd-nspawn -q --resolv-conf=copy-host --timezone=off -D'
 
 # set colorscheme
+if [[ -f "./dialogrc_gui" ]]; then
 export DIALOGRC="./dialogrc_gui"
+else
+export DIALOGRC="/etc/manjaro-arm-installer/dialogrc_gui"
 
 # clearing variables
 DEVICE=""
