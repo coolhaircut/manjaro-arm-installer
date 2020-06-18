@@ -82,6 +82,7 @@ sudo bash ./manjaro-arm-installer
 * KDE/Plasma (full plasma desktop with apps)
 * XFCE (full XFCE desktop with apps)
 * i3 (tiling window manager with gtk apps)
+* Sway (tiling wayland window manager with gtk apps)
 * LXQT (full LXQT desktop with some qt apps)
 * Mate (full mate desktop with apps)
 * CuboCore (base plasma desktop with CoreApps)
