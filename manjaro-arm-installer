@@ -7,6 +7,7 @@
 # Set globals
 TMPDIR=/var/tmp/manjaro-arm-installer
 ARCH='aarch64'
+CARCH=$(uname -m)
 NSPAWN='systemd-nspawn -q --resolv-conf=copy-host --timezone=off -D'
 
 # set colorscheme
@@ -50,9 +51,11 @@ for i in "${DEPENDNECIES[@]}"; do
   fi
 done
 
+if [[ "$CARCH" != "aarch64" ]]; then
 if [ ! -f "/usr/lib/binfmt.d/qemu-static.conf" ]; then
     echo "qemu-static.conf file is missing. Please install the relevant package."
     exit 1
+fi
 fi
 
 
