@@ -380,7 +380,7 @@ fi
 
 if [ ! -z "$EDITION" ]; then
 	USER=$(dialog --clear --title "Manjaro ARM Installer" \
-	--inputbox "Enter username:
+	--inputbox "Enter the username you want:
 (usernames most be all lowercase)" 8 50 \
 	3>&1 1>&2 2>&3 3>&-)
     if [[ "$USER" =~ [A-Z] ]] || [[ "$USER" == *['!'@#\$%^\&*()_+]* ]]; then
@@ -408,7 +408,7 @@ fi
 if [ ! -z "$USER" ]
 then
 FULLNAME=$(dialog --clear --title "Manjaro ARM Installer" \
-    --inputbox "Enter Full Name for $USER:" 8 50 \
+    --inputbox "Enter desired Full Name for $USER:" 8 50 \
         3>&1 1>&2 2>&3 3>&- \
 	)
 else
@@ -419,7 +419,7 @@ fi
 
 if [ ! -z "$FULLNAME" ]; then
 	PASSWORD=$(dialog --clear --title "Manjaro ARM Installer" \
-	--insecure --passwordbox "Enter Password for $USER:" 8 50 \
+	--insecure --passwordbox "Enter new Password for $USER:" 8 50 \
 	3>&1 1>&2 2>&3 3>&- \
 	)
 else 
@@ -429,7 +429,7 @@ fi
 
 if [ ! -z "$PASSWORD" ]; then
 	CONFIRMPASSWORD=$(dialog --clear --title "Manjaro ARM Installer" \
-	--insecure --passwordbox "Confirm Password for $USER:" 8 50 \
+	--insecure --passwordbox "Confirm new Password for $USER:" 8 50 \
 	3>&1 1>&2 2>&3 3>&- \
 	)
 else 
@@ -445,7 +445,7 @@ fi
 
 if [ ! -z "$CONFIRMPASSWORD" ]; then
 	ROOTPASSWORD=$(dialog --clear --title "Manjaro ARM Installer" \
-	--insecure --passwordbox "Enter Root Password:" 8 50 \
+	--insecure --passwordbox "Enter new Root Password:" 8 50 \
 	3>&1 1>&2 2>&3 3>&- \
 	)
 else 
@@ -455,7 +455,7 @@ fi
 
 if [ ! -z "$ROOTPASSWORD" ]; then
 	CONFIRMROOTPASSWORD=$(dialog --clear --title "Manjaro ARM Installer" \
-	--insecure --passwordbox "Confirm Root Password:" 8 50 \
+	--insecure --passwordbox "Confirm new Root Password:" 8 50 \
 	3>&1 1>&2 2>&3 3>&- \
 	)
 else 
@@ -480,7 +480,8 @@ then
 		W+=($line "")
 	done < <( lsblk -dn -o NAME )
 	SDCARD=$(dialog --title "Manjaro ARM Installer" \
-	--menu "Choose your SDCard - Be sure the correct drive is selected!" 20 50 10 \
+	--menu "Choose your SDCard/eMMC/USB - Be sure the correct drive is selected! 
+WARNING! This WILL destroy the data on it!" 20 50 10 \
 	"${W[@]}" 3>&2 2>&1 1>&3)
 
 # add /dev/ to the selected option above
@@ -588,7 +589,7 @@ if [ ! -z "$HOSTNAME" ]; then
     Additional usergroups = $USERGROUPS
     Password for $USER = (password hidden)
     Password for root = (password hidden)
-    SD Card = $SDCARD
+    SDCard/eMMC/USB = $SDCARD
     Timezone = $TIMEZONE
     Locale = $LOCALE
     TTY Keyboard layout = $CLIKEYMAP
