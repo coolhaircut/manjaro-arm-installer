@@ -194,6 +194,9 @@ create_install() {
     echo 'EndSection' >> $TMPDIR/root/etc/X11/xorg.conf.d/00-keyboard.conf
     sed -i s/"us"/"$X11KEYMAP"/ $TMPDIR/root/etc/X11/xorg.conf.d/00-keyboard.conf
     fi
+    if [[ "$EDITION" = "sway" ]]; then
+    sed -i s/"us"/"$X11KEYMAP"/ $TMPDIR/root/etc/sway/inputs/default-keyboard 1> /dev/null 2>&1
+    fi
     echo "$HOSTNAME" | tee --append $TMPDIR/root/etc/hostname 1> /dev/null 2>&1
     sed -i s/"enable systemd-resolved.service"/"#enable systemd-resolved.service"/ $TMPDIR/root/usr/lib/systemd/system-preset/90-systemd.preset
 
