@@ -71,7 +71,7 @@ sudo bash ./manjaro-arm-installer
 * Pine64+
 * Pine H64 (new)
 * Rock64
-* LibreComputer Renegade
+* LibreComputer Renegade (Roc-CC)
 * NanoPC T4 (new)
 * Khadas Vim 3
 * Khadas Vim 2
@@ -89,7 +89,5 @@ sudo bash ./manjaro-arm-installer
 
 ## Other notes:
 This script is available in the **Manjaro** repository and can be installed with `sudo pacman -S manjaro-arm-installer`.
-
-This script is also available as an **Arch** (*pkg.tar.xz*) package in my **Manjaro Strit** repo, called `manjaro-arm-installer`.
 
 This script **should** be distro-agnostic, which means you can install *Manjaro ARM* from **any** distro, as long as the dependencies are met.
