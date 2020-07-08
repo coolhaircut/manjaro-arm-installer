@@ -36,8 +36,7 @@ sudo bash manjaro-arm-installer
 Or with encryption support:
 *Warning! Encryption support is experimental and only Pinebook Pro is supported at this time!*
 ```
-export CRYPT="y"
-sudo bash manjaro-arm-installer
+sudo export CRYPT="y" && sudo bash manjaro-arm-installer
 ```
 It will ask the crypt password twice (first to create it, the second one to open the device)
 
