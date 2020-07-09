@@ -282,11 +282,11 @@ cleanup () {
         dd if=$TMPDIR/boot/u-boot.bin of=${SDCARD} conv=fsync bs=512 skip=1 seek=1 1> /dev/null 2>&1
         ;;
     pinebook|pine64-lts|pine64|pinephone|pinetab|pine-h64)
-        dd if=$TMPDIR/boot/u-boot-sunxi-with-spl-$DEVICE.bin of=${SDCARD} bs=8k seek=1 1> /dev/null 2>&1
+        dd if=$TMPDIR/boot/u-boot-sunxi-with-spl-$DEVICE.bin of=${SDCARD} conv=fsync bs=8k seek=1 1> /dev/null 2>&1
         ;;
     pbpro|rockpro64|rockpi4|nanopc-t4|rock64|roc-cc)
-        dd if=$TMPDIR/boot/idbloader.img of=${SDCARD} seek=64 conv=notrunc 1> /dev/null 2>&1
-        dd if=$TMPDIR/boot/u-boot.itb of=${SDCARD} seek=16384 conv=notrunc 1> /dev/null 2>&1
+        dd if=$TMPDIR/boot/idbloader.img of=${SDCARD} seek=64 conv=notrunc,fsync 1> /dev/null 2>&1
+        dd if=$TMPDIR/boot/u-boot.itb of=${SDCARD} seek=16384 conv=notrunc,fsync 1> /dev/null 2>&1
         ;;
     esac
 
