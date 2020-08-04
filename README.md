@@ -61,7 +61,7 @@ sudo bash ./manjaro-arm-installer
 * Raspberry Pi 4 (and 3)
 * Pinebook Pro
 * RockPro64
-* Rock Pi 4
+* Rock Pi 4 (model B)
 * Odroid N2
 * Odroid C4
 * Odroid C2
