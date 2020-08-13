@@ -61,17 +61,19 @@ sudo bash ./manjaro-arm-installer
 * Raspberry Pi 4 (and 3)
 * Pinebook Pro
 * RockPro64
-* Rock Pi 4 (model B)
+* Rock Pi 4B
+* Rock Pi 4C (new)
 * Odroid N2
+* Odroid N2+ (new)
 * Odroid C4
 * Odroid C2
 * Pinebook
 * Pine64-LTS / Sopine
 * Pine64+
-* Pine H64 (new)
+* Pine H64
 * Rock64
 * LibreComputer Renegade (Roc-CC)
-* NanoPC T4 (new)
+* NanoPC T4
 * Khadas Vim 3
 * Khadas Vim 2
 * Khadas Vim 1
