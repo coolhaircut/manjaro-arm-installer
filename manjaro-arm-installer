@@ -237,6 +237,7 @@ prepare_card () {
         #partition with boot and root
         parted -s $SDCARD mklabel msdos 1> /dev/null 2>&1
         parted -s $SDCARD mkpart primary fat32 32M 256M 1> /dev/null 2>&1
+        sleep 5
         START=`cat /sys/block/$DEV_NAME/${DEV_NAME}${SDDEV}1/start`
         SIZE=`cat /sys/block/$DEV_NAME/${DEV_NAME}${SDDEV}1/size`
         END_SECTOR=$(expr $START + $SIZE)
