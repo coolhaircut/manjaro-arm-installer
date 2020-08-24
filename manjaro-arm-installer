@@ -373,7 +373,7 @@ if [ ! -z "$DEVICE" ]; then
 		"lxqt"       "Full LXQT Desktop and apps (lightweight)" \
 		"i3"         "Mininal i3 WM with apps    (very light)" \
 		"sway"		 "Minimal Sway WM with apps  (very light)" \
-		"cubocore"   "QT based Desktop           (lightweight)" \
+		"server"     "Minimal with LAMP and Docker (only cli)" \
 		"gnome"      "Full Gnome desktop and apps (EXPERIMANTAL)" \
 		3>&1 1>&2 2>&3 3>&-) 
 
