@@ -308,7 +308,7 @@ tweakinitrd_crypt () {
       # Use the proper mkinitcpio.
       # NOTE: I've tried to modify only the HOOKS but it seems some kernel modules are required for the display to show stuff
       cat << EOF > ${TMPDIR}/root/etc/mkinitcpio.conf
-MODULES=(panfrost rockchipdrm drm_kms_helper hantro_vpu analogix_dp rockchip_rga panel_simple arc_uart cw2015_battery i2c-hid icp iscsi_boot_sysfs jsm pwm_bl spl uhid)
+MODULES=(panfrost rockchipdrm drm_kms_helper hantro_vpu analogix_dp rockchip_rga panel_simple arc_uart cw2015_battery i2c-hid iscsi_boot_sysfs jsm pwm_bl uhid)
 BINARIES=()
 FILES=()
 HOOKS=(base udev keyboard autodetect keymap modconf block encrypt lvm2 filesystems fsck)
