@@ -86,7 +86,7 @@ sudo bash ./manjaro-arm-installer
 * Sway (tiling wayland window manager with gtk apps)
 * LXQT (full LXQT desktop with some qt apps)
 * Mate (full mate desktop with apps)
-* CuboCore (base plasma desktop with CoreApps)
+* Server (minimal install with LAMP and Docker)
 
 ## Other notes:
 This script is available in the **Manjaro** repository and can be installed with `sudo pacman -S manjaro-arm-installer`.
