@@ -1,4 +1,5 @@
 # manjaro-arm-installer
+> _Forked from official [Manjaro ARM Gitlab](https://gitlab.manjaro.org/manjaro-arm/applications/manjaro-arm-installer), see [FORKNOTES](FORKNOTES.md),_
 
 Scripts for installing Manjaro ARM directly to SD/eMMC cards without the need for images.
 
